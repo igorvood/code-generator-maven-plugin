@@ -3,10 +3,29 @@ package ru.vood
 import org.apache.maven.plugin.AbstractMojo
 import org.apache.maven.plugins.annotations.LifecyclePhase
 import org.apache.maven.plugins.annotations.Mojo
+import org.apache.maven.plugins.annotations.Parameter
+import ru.vood.generator.file.GenerateFileImpl
 import java.io.File
 
 @Mojo(name = "GenerateCode", defaultPhase = LifecyclePhase.GENERATE_SOURCES, threadSafe = true)
 class CodeGeneratorMojo : AbstractMojo() {
+
+    @Parameter(property = "baseDirectory", required = false, defaultValue = "\${project.build.directory}/generated-sources", readonly = true)
+    private var baseDirectory: String = ""
+
+    @Parameter(property = "package", required = true)
+    private var packageS: String = ""
+
+    @Parameter(property = "fileName", required = true)
+    private var fileName: String = ""
+
+    @Parameter(property = "templateFileName", required = true)
+    private var templateFileName: String = ""
+
+
+    val code =
+            "public class POI {\n" +
+                    "}\n"
     /**
      * Location of the file.
      * @parameter expression="${project.build.directory}"
@@ -16,26 +35,10 @@ class CodeGeneratorMojo : AbstractMojo() {
 
 
     override fun execute() {
-        println("------> HELLOW ")
-//        val f = outputDirectory
-//        if (!f!!.exists()) {
-//            f.mkdirs()
-//        }
-//        val touch = File(f, "touch.txt")
-//        var w: FileWriter? = null
-//        try {
-//            w = FileWriter(touch)
-//            w.write("touch.txt")
-//        } catch (e: IOException) {
-//            throw MojoExecutionException("Error creating file $touch", e)
-//        } finally {
-//            if (w != null) {
-//                try {
-//                    w.close()
-//                } catch (e: IOException) { // ignore
-//                }
-//            }
-//        }
+        println("------> HELLOW baseDirectory->$baseDirectory")
+        val test = GenerateFileImpl()
+        val generateFile = test.generateFile(baseDirectory, packageS, fileName, code)
+        println("------>$generateFile")
     }
 
 }
