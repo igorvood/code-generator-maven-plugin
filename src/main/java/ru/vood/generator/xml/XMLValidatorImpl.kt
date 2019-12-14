@@ -26,7 +26,7 @@ class XMLValidatorImpl : XMLValidator {
 
     private fun getResource(filename: String): String {
         val resource = javaClass.classLoader.getResource(filename)
-        Objects.requireNonNull(resource)
+        Objects.requireNonNull(resource, "file is not found!")
         return resource.file
     }
 }
