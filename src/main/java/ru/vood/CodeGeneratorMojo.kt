@@ -5,6 +5,8 @@ import org.apache.maven.plugins.annotations.LifecyclePhase
 import org.apache.maven.plugins.annotations.Mojo
 import org.apache.maven.plugins.annotations.Parameter
 import ru.vood.generator.file.GenerateFileImpl
+import ru.vood.generator.read.TuneReader
+import ru.vood.generator.read.TuneReaderImpl
 import java.io.File
 
 @Mojo(name = "GenerateCode", defaultPhase = LifecyclePhase.GENERATE_SOURCES, threadSafe = true)
@@ -38,6 +40,14 @@ class CodeGeneratorMojo : AbstractMojo() {
 
 
     override fun execute() {
+        println("------> HELLOW generatorTuneXmlFile->$generatorTuneXmlFile")
+        val read: TuneReader = TuneReaderImpl()
+        val readTuneFromFile = read.readTuneFromFile(generatorTuneXmlFile)
+        println("------> UNMARSHAL ->$readTuneFromFile.templateGenerateList.generate.size")
+
+    }
+
+    private fun staticGenerate() {
         println("------> HELLOW baseDirectory->$baseDirectory")
         val test = GenerateFileImpl()
         val generateFile = test.generateFile(baseDirectory, packageS, fileName, code)
