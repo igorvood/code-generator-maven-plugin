@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>ru.vood</groupId>
@@ -140,6 +140,33 @@
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
+            <!--
+                        <plugin>
+                            <groupId>org.jvnet.jaxb2.maven2</groupId>
+                            <artifactId>maven-jaxb2-plugin</artifactId>
+                            <version>${maven-jaxb2-plugin.version}</version>
+                            <executions>
+                                <execution>
+                                    <goals>
+                                        <goal>generate</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                            <configuration>
+                                <generatePackage>ru.vood.plugin.generated.from.xsd</generatePackage>
+                                <schemaDirectory>src/main/resources/XSDSchema</schemaDirectory>
+                                <schemaIncludes>
+                                    <include>parameters.xsd</include>
+                                </schemaIncludes>
+                                &lt;!&ndash;                    <bindingDirectory>src/main/resources/XSDSchema</bindingDirectory>&ndash;&gt;
+                                &lt;!&ndash;                    <bindingIncludes>&ndash;&gt;
+                                &lt;!&ndash;                        <include>bindings.xml</include>&ndash;&gt;
+                                &lt;!&ndash;                    </bindingIncludes>&ndash;&gt;
+                                <extension>true</extension>
+                                <cleanPackageDirectories>true</cleanPackageDirectories>
+                            </configuration>
+                        </plugin>
+            -->
             <plugin>
                 <groupId>org.jvnet.jaxb2.maven2</groupId>
                 <artifactId>maven-jaxb2-plugin</artifactId>
@@ -157,6 +184,7 @@
                     <schemaIncludes>
                         <include>parameters.xsd</include>
                     </schemaIncludes>
+                    <encoding>UTF-8</encoding>
                     <!--                    <bindingDirectory>src/main/resources/XSDSchema</bindingDirectory>-->
                     <!--                    <bindingIncludes>-->
                     <!--                        <include>bindings.xml</include>-->
@@ -165,6 +193,7 @@
                     <cleanPackageDirectories>true</cleanPackageDirectories>
                 </configuration>
             </plugin>
+
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -178,12 +207,14 @@
             </plugin>
         </plugins>
         <testResources>
+
             <testResource>
-                <directory>src/test/resource</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>**/*.*</include>
-                </includes>
+                <filtering>false</filtering>
+                <directory>${project.basedir}/src/test/resources</directory>
+            </testResource>
+            <testResource>
+                <filtering>false</filtering>
+                <directory>${project.basedir}/src/main/resources</directory>
             </testResource>
         </testResources>
 

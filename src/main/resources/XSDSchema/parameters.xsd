@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified"
-           elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+
+           attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+>
+    <!--
+        <xs:schema targetNamespace="http://www.xyz.com/Services/CommonTypes" elementFormDefault="qualified"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:CommonTypes="http://www.xyz.com/Services/CommonTypes">
+
+    -->
 
     <xs:element name="pluginTines" type="pluginTinesType"/>
 
