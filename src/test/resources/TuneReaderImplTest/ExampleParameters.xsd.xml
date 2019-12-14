@@ -1,11 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<pluginTines>
-    <TemplateGenerateList>
-        <Generate template="VELOCITY" package="ru.vood.generated" templateFile="First.ftl"
-                  metaInfoXmlFile="MetaInfoForFirst.xml" xsdForMetaInfoXmlFile="xsdForFirst.xsd"
-                  fileNameParam="unkown1"/>
-        <Generate template="FREE_MARKER" package="ru.vood.generated" templateFile="Second.vlt"
-                  metaInfoXmlFile="MetaInfoForSecond.xml" xsdForMetaInfoXmlFile="xsdForSecond.xsd"
-                  fileNameParam="unkown2"/>
-    </TemplateGenerateList>
-</pluginTines>
+<code:pluginTines xmlns:code="http://vood.com/schema/code-generator-1.0.xsd">
+    <code:TemplateGenerateList>
+        <code:Generate template="VELOCITY" package="string" templateFile="string" metaInfoXmlFile="string"
+                       xsdForMetaInfoXmlFile="string" fileNameParam="string"/>
+        <code:Generate template="FREE_MARKER" package="string" templateFile="string" metaInfoXmlFile="string"
+                       xsdForMetaInfoXmlFile="string" fileNameParam="string"/>
+    </code:TemplateGenerateList>
+</code:pluginTines>

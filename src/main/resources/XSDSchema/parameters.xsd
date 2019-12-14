@@ -1,37 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://vood.com/schema/code-generator-1.0.xsd"
+           targetNamespace="http://vood.com/schema/code-generator-1.0.xsd"
+           elementFormDefault="qualified">
 
-           attributeFormDefault="unqualified"
-           elementFormDefault="qualified"
->
-    <!--
-        <xs:schema targetNamespace="http://www.xyz.com/Services/CommonTypes" elementFormDefault="qualified"
-                xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-                xmlns:CommonTypes="http://www.xyz.com/Services/CommonTypes">
+    <xs:element name="pluginTines">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element type="tns:generateByTemplateList" name="TemplateGenerateList"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
-    -->
 
-    <xs:element name="pluginTines" type="pluginTinesType"/>
-
-    <xs:complexType name="pluginTinesType">
-        <xs:sequence>
-            <xs:element type="GenerateByTemplateList" name="TemplateGenerateList"/>
+    <xs:complexType name="generateByTemplateList">
+        <xs:sequence minOccurs="2" maxOccurs="unbounded">
+            <xs:element type="tns:generate" name="Generate"/>
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="GenerateByTemplateList">
-        <xs:sequence minOccurs="0" maxOccurs="unbounded">
-            <xs:element type="Generate" name="Generate"/>
-        </xs:sequence>
-        <!--        <xs:attribute type="xs:string" name="username"/>-->
-        <!--        <xs:attribute type="xs:string" name="password"/>-->
-        <!--        <xs:attribute type="xs:string" name="url"/>-->
-        <!--        <xs:attribute type="xs:string" name="dataBaseDriver"/>-->
-    </xs:complexType>
-
-    <xs:complexType name="Generate">
-        <xs:attribute type="TemplateEngineType" name="template"/>
+    <xs:complexType name="generate">
+        <xs:attribute type="tns:templateEngineType" name="template"/>
         <xs:attribute type="xs:string" name="package"/>
         <xs:attribute type="xs:string" name="templateFile"/>
         <xs:attribute type="xs:string" name="metaInfoXmlFile"/>
@@ -39,7 +28,7 @@
         <xs:attribute type="xs:string" name="fileNameParam"/>
     </xs:complexType>
 
-    <xs:simpleType name="TemplateEngineType">
+    <xs:simpleType name="templateEngineType">
         <xs:restriction base="xs:string">
             <xs:enumeration value="FREE_MARKER"/>
             <xs:enumeration value="VELOCITY"/>
