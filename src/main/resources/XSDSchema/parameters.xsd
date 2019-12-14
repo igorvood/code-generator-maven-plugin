@@ -4,51 +4,36 @@
 
     <xs:element name="pluginTines" type="pluginTinesType"/>
 
-    <xs:complexType name="tableType">
-        <xs:simpleContent>
-            <xs:extension base="xs:string">
-                <xs:attribute type="xs:string" name="table_name" use="optional"/>
-                <xs:attribute type="xs:string" name="table_owner" use="optional"/>
-            </xs:extension>
-        </xs:simpleContent>
-    </xs:complexType>
-
     <xs:complexType name="pluginTinesType">
         <xs:sequence>
-            <xs:element type="table_class_listType" name="table_class_list"/>
-        </xs:sequence>
-        <xs:attribute type="xs:string" name="username"/>
-        <xs:attribute type="xs:string" name="password"/>
-        <xs:attribute type="xs:string" name="url"/>
-        <xs:attribute type="xs:string" name="dataBaseDriver"/>
-    </xs:complexType>
-
-    <xs:complexType name="class_from_tablesType">
-        <xs:sequence>
-            <xs:element name="generatingClass">
-                <xs:simpleType>
-                    <xs:restriction base="xs:string">
-                        <xs:enumeration value="ENTITY"/>
-                        <xs:enumeration value="ENUM"/>
-                        <xs:enumeration value="REPOSITORY"/>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:element>
-            <xs:element type="table_listType" name="table_list"/>
+            <xs:element type="GenerateByTemplateList" name="TemplateGenerateList"/>
         </xs:sequence>
     </xs:complexType>
 
-    <xs:complexType name="table_listType">
-        <xs:sequence>
-            <xs:element type="tableType" name="table" maxOccurs="unbounded" minOccurs="0"/>
+    <xs:complexType name="GenerateByTemplateList">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element type="Generate" name="Generate"/>
         </xs:sequence>
+        <!--        <xs:attribute type="xs:string" name="username"/>-->
+        <!--        <xs:attribute type="xs:string" name="password"/>-->
+        <!--        <xs:attribute type="xs:string" name="url"/>-->
+        <!--        <xs:attribute type="xs:string" name="dataBaseDriver"/>-->
     </xs:complexType>
 
-    <xs:complexType name="table_class_listType">
-        <xs:sequence>
-            <xs:element type="class_from_tablesType" name="class_from_tables" maxOccurs="unbounded"
-                        minOccurs="0"/>
-        </xs:sequence>
+    <xs:complexType name="Generate">
+        <xs:attribute type="TemplateEngineType" name="template"/>
+        <xs:attribute type="xs:string" name="package"/>
+        <xs:attribute type="xs:string" name="templateFile"/>
+        <xs:attribute type="xs:string" name="metaInfoXmlFile"/>
+        <xs:attribute type="xs:string" name="xsdForMetaInfoXmlFile"/>
+        <xs:attribute type="xs:string" name="fileNameParam"/>
     </xs:complexType>
+
+    <xs:simpleType name="TemplateEngineType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="FREE_MARKER"/>
+            <xs:enumeration value="VELOCITY"/>
+        </xs:restriction>
+    </xs:simpleType>
 
 </xs:schema>

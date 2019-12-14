@@ -10,6 +10,9 @@ import java.io.File
 @Mojo(name = "GenerateCode", defaultPhase = LifecyclePhase.GENERATE_SOURCES, threadSafe = true)
 class CodeGeneratorMojo : AbstractMojo() {
 
+    @Parameter(property = "generatorTuneXmlFile", required = true, readonly = true)
+    private var generatorTuneXmlFile: String = ""
+
     @Parameter(property = "baseDirectory", required = false, defaultValue = "\${project.build.directory}/generated-sources", readonly = true)
     private var baseDirectory: String = ""
 
