@@ -66,9 +66,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.freemarker</groupId>
-            <artifactId>freemarker</artifactId>
-            <version>2.3.29</version>
+            <groupId>ru.vood</groupId>
+            <artifactId>wrapper-freemarker-lib</artifactId>
+            <version>1.0</version>
         </dependency>
 
         <dependency>
@@ -178,7 +178,6 @@
             </plugin>
         </plugins>
         <testResources>
-
             <testResource>
                 <filtering>false</filtering>
                 <directory>${project.basedir}/src/test/resources</directory>
