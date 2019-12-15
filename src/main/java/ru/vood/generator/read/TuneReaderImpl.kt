@@ -20,13 +20,11 @@ class TuneReaderImpl(private val xmlValidator: XMLValidator
         marshaller = jaxbContext.createMarshaller()
     }
 
-    override fun readTune(xmlText: String): PluginTines {
-        xmlValidator.validate(xmlText)
-        val unmarshal = unmarshaller.unmarshal(File(xmlValidator.getResource(xmlText)))
+    override fun readTune(fileName: String): PluginTines {
+        xmlValidator.validate(fileName)
+        val unmarshal = unmarshaller.unmarshal(File(xmlValidator.getResource(fileName)))
         return (unmarshal as PluginTines)
     }
-
-    override fun readTuneFromFile(fileName: String) = readTune(fileReader.readFile(fileName))
 
     override fun saveTune(pluginTune: PluginTines, file: File) {
         marshaller.marshal(pluginTune, file)

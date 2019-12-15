@@ -26,10 +26,6 @@ internal class TuneReaderImplTest {
     }
 
     @Test
-    fun readTuneFromFile() {
-    }
-
-    @Test
     fun saveTune() {
         val pluginTinesType = PluginTines()
         pluginTinesType.templateGenerateList = GenerateByTemplateList()

@@ -44,7 +44,7 @@ class CodeGeneratorMojo : AbstractMojo() {
     override fun execute() {
         println("------> HELLOW generatorTuneXmlFile->$generatorTuneXmlFile")
         val read: TuneReader = TuneReaderImpl(XMLValidatorImpl(), FileReaderImpl())
-        val readTuneFromFile = read.readTuneFromFile(generatorTuneXmlFile)
+        val readTuneFromFile = read.readTune(generatorTuneXmlFile)
         println("------> UNMARSHAL ->$readTuneFromFile.templateGenerateList.generate.size")
 
     }
