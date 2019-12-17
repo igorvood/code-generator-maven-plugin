@@ -1,7 +1,26 @@
 package ru.vood.generator.generate.resolve
 
-enum class TypeFile(val extensionFile: String) {
-    JAVA("java"),
-    KOTLIN("kt")
+import ru.vood.generator.generate.resolve.TypeFile.Const.JAVA_CLASS_NAME
+import ru.vood.generator.generate.resolve.TypeFile.Const.KOTLIN_CLASS_NAME
+import ru.vood.generator.generate.resolve.TypeFile.Const.PACK
+
+enum class TypeFile(val extensionFile: String
+                    , val classNameRegexp: String
+                    , val packageRegexp: String) {
+
+    JAVA("java", JAVA_CLASS_NAME, PACK),
+    KOTLIN("kt", KOTLIN_CLASS_NAME, PACK);
+
+    protected object Const {
+        const val PACK: String = "(package).+[;]"
+
+        const val JAVA_CLASS_NAME: String = "((interface).[{])|((enum).[{])|((class).[{])"
+
+        private const val KOTLIN_CLASS_NAME_1: String = "((interface).[{])|((class).[{])|((object).[{])"
+        private const val KOTLIN_CLASS_NAME_2: String = "((interface).[(])|((class).[(])|((object).[(])"
+
+        const val KOTLIN_CLASS_NAME: String = KOTLIN_CLASS_NAME_2 + KOTLIN_CLASS_NAME_1
+    }
+
 
 }
