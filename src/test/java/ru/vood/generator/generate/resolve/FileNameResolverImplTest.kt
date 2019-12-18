@@ -27,8 +27,10 @@ internal class FileNameResolverImplTest {
 //                .filter{it.first.absolutePath.contains("VBdIndexedColomnsEntityTest")}
 //                .peek { println("----->"+it.first) }
                 .map { Pair(it.first.absolutePath.replace("\\", "."), fileNameResolver.resolveFileByContent(calculationTypeFile(it.first), it.second)) }
-                .peek { Assertions.assertTrue(it.first.contains(it.second.packageStr), "package does not correct") }
-                .peek { Assertions.assertTrue(it.first.contains(it.second.fileName + "." + it.second.type.extensionFile), "file name does not correct") }
+//                .peek { println(it.first.substring(it.first.indexOf("ru.vood"))) }
+                .map { Pair(it.first.substring(it.first.indexOf("ru.vood")), it.second) }
+                .peek { Assertions.assertTrue(it.first.contains(it.second.packageStr), "package for ${it.first} does not correct") }
+                .peek { Assertions.assertTrue(it.first.contains(it.second.fileName + "." + it.second.type.extensionFile), "file name for ${it.first} does not correct") }
                 .forEach { println(it) }
     }
 
