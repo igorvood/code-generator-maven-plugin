@@ -20,7 +20,7 @@ enum class TypeFile(val extensionFile: String
         private const val KOTLIN_CLASS_NAME_1: String = "((interface).[{])|((class).[{])|((object).[{])"
         private const val KOTLIN_CLASS_NAME_2: String = "((interface).[(])|((class).[(])|((object).[(])"
 
-        const val KOTLIN_CLASS_NAME: String = "((interface)|(class)|(enum)|(object))\\s{1,}((\\w{1,}){1})"
+        const val KOTLIN_CLASS_NAME: String = "((interface)|(class)|(object))\\s{1,}((\\w{1,}){1})"
     }
 
 
