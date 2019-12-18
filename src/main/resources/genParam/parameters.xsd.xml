@@ -1,0 +1,26 @@
+<code:pluginTines xmlns:code="http://vood.com/schema/code-generator-data-1.0.xsd">
+    <code:oneFile package="string" className="string" extension="string">
+        <code:entry>
+            <code:entry key="string" value="string"/>
+            <code:superEntry key="string">
+                <code:value key="string" value="string"/>
+            </code:superEntry>
+            <code:entry key="string" value="string"/>
+            <code:superEntry key="string">
+                <code:value key="string" value="string"/>
+            </code:superEntry>
+        </code:entry>
+    </code:oneFile>
+    <code:oneFile package="string" className="string" extension="string">
+        <code:entry>
+            <code:entry key="string" value="string"/>
+            <code:superEntry key="string">
+                <code:value key="string" value="string"/>
+            </code:superEntry>
+            <code:entry key="string" value="string"/>
+            <code:superEntry key="string">
+                <code:value key="string" value="string"/>
+            </code:superEntry>
+        </code:entry>
+    </code:oneFile>
+</code:pluginTines>
