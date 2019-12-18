@@ -24,6 +24,8 @@ internal class FileNameResolverImplTest {
         val lf: Set<File> = getListFiles(dir)
         lf.stream()
                 .map { Pair<File, String>(it, readFile(it)) }
+//                .filter{it.first.absolutePath.contains("VBdIndexedColomnsEntityTest")}
+//                .peek { println("----->"+it.first) }
                 .map { Pair(it.first.absolutePath.replace("\\", "."), fileNameResolver.resolveFileByContent(calculationTypeFile(it.first), it.second)) }
                 .peek { Assertions.assertTrue(it.first.contains(it.second.packageStr), "package does not correct") }
                 .peek { Assertions.assertTrue(it.first.contains(it.second.fileName + "." + it.second.type.extensionFile), "file name does not correct") }
@@ -48,8 +50,9 @@ internal class FileNameResolverImplTest {
         return inputStream.bufferedReader().use { it.readText() }
     }
 
-    private fun calculationTypeFile(f: File) = TypeFile.values()
-            .filter { it.extensionFile.equals(f.absolutePath.split(".")[1]) }[0]
+    private fun calculationTypeFile(f: File) =
+            TypeFile.values()
+                    .filter { it.extensionFile == f.absolutePath.split(".")[1] }[0]
 
 
 }
