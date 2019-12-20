@@ -32,6 +32,7 @@ internal class FileNameResolverImplTest {
                 .peek { Assertions.assertTrue(it.first.contains(it.second.packageStr), "package for ${it.first} does not correct") }
                 .peek { Assertions.assertTrue(it.first.contains(it.second.fileName + "." + it.second.type.extensionFile), "file name for ${it.first} does not correct") }
                 .forEach { println(it) }
+        println("total file ${lf.size}")
     }
 
     private fun getListFiles(dir: File): Set<File> {
