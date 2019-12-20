@@ -35,6 +35,54 @@ internal class FileNameResolverImplTest {
         println("total file ${lf.size}")
     }
 
+    @Test
+    fun resolveFileByContentAllError() {
+        val text = "qwerty"
+        try {
+            fileNameResolver.resolveFileByContent(TypeFile.KOTLIN, text)
+            Assertions.fail<String>("exception expected")
+        } catch (e: FileNameResolverException) {
+            Assertions.assertTrue(e.message.contains("Can not resolve package name, regexp"))
+            Assertions.assertTrue(e.message.contains("Can not resolve class name, regexp"))
+            Assertions.assertTrue(e.message.contains(" File text:"))
+            Assertions.assertTrue(e.message.contains(text))
+        } catch (e: Throwable) {
+            Assertions.fail<String>("exception ${e.javaClass} not expected")
+        }
+    }
+
+    @Test
+    fun resolveFileByContentPackageError() {
+        val text = "public @interface Annotation1 { }\n"
+        try {
+            fileNameResolver.resolveFileByContent(TypeFile.KOTLIN, text)
+            Assertions.fail<String>("exception expected")
+        } catch (e: FileNameResolverException) {
+            Assertions.assertTrue(e.message.contains("Can not resolve package name, regexp"))
+            Assertions.assertTrue(!e.message.contains("Can not resolve class name, regexp"))
+            Assertions.assertTrue(e.message.contains(" File text:"))
+            Assertions.assertTrue(e.message.contains(text))
+        } catch (e: Throwable) {
+            Assertions.fail<String>("exception ${e.javaClass} not expected")
+        }
+    }
+
+    @Test
+    fun resolveFileByContentClassError() {
+        val text = "package ru.vood.reg;"
+        try {
+            fileNameResolver.resolveFileByContent(TypeFile.KOTLIN, text)
+            Assertions.fail<String>("exception expected")
+        } catch (e: FileNameResolverException) {
+            Assertions.assertTrue(!e.message.contains("Can not resolve package name, regexp"))
+            Assertions.assertTrue(e.message.contains("Can not resolve class name, regexp"))
+            Assertions.assertTrue(e.message.contains(" File text:"))
+            Assertions.assertTrue(e.message.contains(text))
+        } catch (e: Throwable) {
+            Assertions.fail<String>("exception ${e.javaClass} not expected")
+        }
+    }
+
     private fun getListFiles(dir: File): Set<File> {
         val lf = HashSet<File>()
         if (dir.isDirectory) {

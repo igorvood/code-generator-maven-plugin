@@ -16,18 +16,14 @@ class FileNameResolverImpl : FileNameResolver {
         val patternClass: Pattern = Pattern.compile(typeFile.classNameRegexp, Pattern.MULTILINE)
         val matcherClass: Matcher = patternClass.matcher(text)
         var clazz: String? = null
-//        while (matcherClass.find()) {
-//            println("Full match: " + matcherClass.group(0))
-//            for (i in 1..matcherClass.groupCount()) {
-//                println("Group " + i + ": " + matcherClass.group(i))
-//            }
-//        }
 
         if (matcherClass.find()) {
             clazz = matcherClass.group(6)
         }
-        if (clazz == null) clazz = "err"
-        if (pack == null) pack = "err"
-        return FileProperty(fileName = clazz, packageStr = pack, type = typeFile)
+        var err = ""
+        if (pack == null) err = "Can not resolve package name, regexp=${typeFile.packageRegexp}."
+        if (clazz == null) err += " Can not resolve class name, regexp=${typeFile.classNameRegexp}."
+        if (err.isNotEmpty()) throw FileNameResolverException("$err. File text:\n$text")
+        return FileProperty(fileName = clazz!!, packageStr = pack!!, type = typeFile)
     }
 }
