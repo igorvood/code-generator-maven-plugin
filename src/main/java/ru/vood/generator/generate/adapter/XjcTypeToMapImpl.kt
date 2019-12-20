@@ -6,7 +6,7 @@ import java.util.stream.Collectors.toMap
 
 class XjcTypeToMapImpl : XjcTypeToMap {
 
-    fun convert(param: TemplateParam): Pair<Map<String, String>, Map<String, Map<String, String>>> {
+    override fun convert(param: TemplateParam): Pair<Map<String, String>, Map<String, Map<String, String>>> {
         val simpleMap = param.params.simpleMap.entry
                 .stream()
                 .collect(toMap(
