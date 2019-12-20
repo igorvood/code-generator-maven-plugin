@@ -10,7 +10,6 @@ public class GenerateInnerClasses {
         generate();
     }
 
-
     static void generate() throws MojoFailureException, MojoExecutionException {
         XjcMojo xjcMojo = new VoodXjcMojo();
         xjcMojo.execute();
