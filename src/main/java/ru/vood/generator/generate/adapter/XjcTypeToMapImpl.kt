@@ -7,12 +7,19 @@ import java.util.stream.Collectors.toMap
 class XjcTypeToMapImpl : XjcTypeToMap {
 
     override fun convert(param: TemplateParam): Pair<Map<String, String>, Map<String, Map<String, String>>> {
-        val simpleMap = param.params.simpleMap.entry
-                .stream()
-                .collect(toMap(
-                        { obj -> obj.key },
-                        { obj: EntryType -> obj.value }
-                ))
+
+        var simpleMap: Map<String, String>? = null
+        try {
+
+            simpleMap = param.params.simpleMap.entry
+                    .stream()
+                    .collect(toMap(
+                            { obj -> obj.key },
+                            { obj: EntryType -> obj.value }
+                    ))
+        } catch (e: IllegalStateException) {
+            throw ConvertException("""Can not convert data for simpleMap, reason=>${e.message!!}""", e)
+        }
         val superMap = param.params.superMap.entry
                 .stream()
                 .map {
@@ -31,6 +38,6 @@ class XjcTypeToMapImpl : XjcTypeToMap {
                         { k -> k.first }
                 ) { k: Pair<String, Map<String, String>> -> k.second }
                 )
-        return Pair(simpleMap, superMap)
+        return simpleMap!! to superMap
     }
 }

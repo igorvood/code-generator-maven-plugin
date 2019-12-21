@@ -23,12 +23,7 @@
         </xs:all>
     </xs:complexType>
 
-    <xs:simpleType name="templateEngineType">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="FREE_MARKER"/>
-            <xs:enumeration value="VELOCITY"/>
-        </xs:restriction>
-    </xs:simpleType>
+    <xs:complexType name="superMapType">
     <xs:complexType name="superMapType">
         <xs:sequence maxOccurs="unbounded" minOccurs="10">
             <xs:element name="entry" type="tns:superEntryType"/>
