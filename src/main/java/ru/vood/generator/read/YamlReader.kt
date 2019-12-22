@@ -9,7 +9,7 @@ import java.io.File
 class YamlReader<T>(private val clazz: Class<T>
                     , private val fileReader: FileReader) : TuneReader<T> {
 
-    val yaml = Yaml(Constructor(clazz))
+    private val yaml = Yaml(Constructor(clazz))
 
     override fun readTune(fileName: String): T {
         val file = File(fileName)

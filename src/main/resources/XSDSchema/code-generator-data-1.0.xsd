@@ -24,7 +24,6 @@
     </xs:complexType>
 
     <xs:complexType name="superMapType">
-    <xs:complexType name="superMapType">
         <xs:sequence maxOccurs="unbounded" minOccurs="10">
             <xs:element name="entry" type="tns:superEntryType"/>
         </xs:sequence>
