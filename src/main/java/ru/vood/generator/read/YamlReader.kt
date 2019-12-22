@@ -3,7 +3,7 @@ package ru.vood.generator.read
 import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.constructor.Constructor
 import ru.vood.generator.read.dto.KeyValDto
-import ru.vood.generator.read.dto.YamlParamTemplateDto
+import ru.vood.generator.read.dto.YamlParamForTemplateDto
 import java.io.File
 
 
@@ -28,8 +28,8 @@ class YamlReader<T>(private val clazz: Class<T>
         file.writeText(text)
     }
 
-    private fun yamlParamTemplateDto(): YamlParamTemplateDto {
-        val yamlDto = YamlParamTemplateDto()
+    private fun yamlParamTemplateDto(): YamlParamForTemplateDto {
+        val yamlDto = YamlParamForTemplateDto()
         val listOf = listOf(KeyValDto("key1", "val2"), KeyValDto("key3", "val4"))
         yamlDto.map = listOf
         yamlDto.multiMaps = listOf(KeyValDto("key10", listOf(KeyValDto("key100", "val200"), KeyValDto("key300", "val400"))))
