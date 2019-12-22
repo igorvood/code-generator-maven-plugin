@@ -1,6 +1,6 @@
 package ru.vood.generator.read.dto
 
-class YamlDto {
+class YamlParamTemplateDto {
     var map: List<KeyValDto<String>>? = null
     var multiMaps: List<KeyValDto<List<KeyValDto<String>>>>? = null
 
