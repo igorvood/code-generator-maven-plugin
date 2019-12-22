@@ -3,8 +3,8 @@ package ru.vood.generator.read
 import org.junit.jupiter.api.Test
 import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.constructor.Constructor
-import ru.vood.generator.read.dto.jav.KeyValDto
-import ru.vood.generator.read.dto.jav.YamlDto
+import ru.vood.generator.read.dto.KeyValDto
+import ru.vood.generator.read.dto.YamlDto
 
 internal class YamlReaderTestDelete {
 
