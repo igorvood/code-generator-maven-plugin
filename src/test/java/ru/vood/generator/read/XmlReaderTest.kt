@@ -15,7 +15,7 @@ internal class XmlReaderTest {
 
     @BeforeEach
     fun setUp() {
-        tuneReader = XmlReader(XMLValidatorImpl(), FileReaderImpl())
+        tuneReader = XmlReader(XMLValidatorImpl())
     }
 
     @Test
