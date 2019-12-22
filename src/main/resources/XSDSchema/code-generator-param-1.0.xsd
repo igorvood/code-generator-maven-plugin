@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:tns="http://vood.com/schema/code-generator-1.0.xsd"
-           targetNamespace="http://vood.com/schema/code-generator-1.0.xsd"
+           xmlns:tns="http://vood.com/schema/code-generator-param-1.0.xsd"
+           targetNamespace="http://vood.com/schema/code-generator-param-1.0.xsd"
            elementFormDefault="qualified">
 
     <xs:element name="pluginTines">

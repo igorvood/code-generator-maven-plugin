@@ -157,7 +157,7 @@
                     <generatePackage>ru.vood.plugin.generated.from.xsd</generatePackage>
                     <schemaDirectory>src/main/resources/XSDSchema</schemaDirectory>
                     <schemaIncludes>
-                        <include>parameters.xsd</include>
+                        <include>code-generator-param-1.0.xsd</include>
                         <include>code-generator-data-1.0.xsd</include>
                     </schemaIncludes>
 

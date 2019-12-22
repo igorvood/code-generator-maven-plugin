@@ -4,7 +4,7 @@ import ru.vood.plugin.generated.from.xsd.EntryType
 import ru.vood.plugin.generated.from.xsd.TemplateParam
 import java.util.stream.Collectors.toMap
 
-class XjcTypeToMapImpl : XjcTypeToMap {
+class XjcTypeToMapImpl : InputDataTypeToTemplateParam<TemplateParam> {
 
     override fun convert(param: TemplateParam): Pair<Map<String, String>, Map<String, Map<String, String>>> {
 

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 import ru.vood.plugin.generated.from.xsd.*
 
 internal class XjcTypeToMapImplTest {
-    lateinit var xjcTypeToMap: XjcTypeToMap
+    lateinit var xjcTypeToMap: InputDataTypeToTemplateParam<TemplateParam>
 
     @BeforeEach
     fun setUp() {
