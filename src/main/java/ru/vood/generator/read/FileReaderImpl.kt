@@ -11,7 +11,7 @@ class FileReaderImpl : FileReader {
 
     private fun getResourceUrl(filename: String): String {
         val resource = javaClass.classLoader.getResource(filename)
-        Objects.requireNonNull(resource, "file is not found!")
+        Objects.requireNonNull(resource, "file $filename is not found!")
         return resource.file
     }
 

@@ -1,13 +1,13 @@
 package ru.vood.generator.read.dto.jav;
 
-public class KeyValDto {
+public class KeyValDto<T> {
     private String key;
-    private String val;
+    private T val;
 
     public KeyValDto() {
     }
 
-    public KeyValDto(String key, String val) {
+    public KeyValDto(String key, T val) {
         this.key = key;
         this.val = val;
     }
@@ -20,11 +20,11 @@ public class KeyValDto {
         this.key = key;
     }
 
-    public String getVal() {
+    public T getVal() {
         return val;
     }
 
-    public void setVal(String val) {
+    public void setVal(T val) {
         this.val = val;
     }
 }

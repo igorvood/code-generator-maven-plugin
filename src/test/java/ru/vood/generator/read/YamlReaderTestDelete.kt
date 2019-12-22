@@ -1,21 +1,13 @@
 package ru.vood.generator.read
 
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.constructor.Constructor
-import ru.vood.generator.read.dto.jav.KeyMapDto
 import ru.vood.generator.read.dto.jav.KeyValDto
 import ru.vood.generator.read.dto.jav.YamlDto
 
 internal class YamlReaderTestDelete {
 
-    lateinit var yamlReader: YamlReader
-
-    @BeforeEach
-    fun setUp() {
-        yamlReader = YamlReader()
-    }
 
     @Test
     fun readTune() {
@@ -24,14 +16,21 @@ internal class YamlReaderTestDelete {
         val yamlDto = YamlDto()
         val listOf = listOf(KeyValDto("1", "2"), KeyValDto("3", "4"))
         yamlDto.map = listOf
-        yamlDto.multyMaps = listOf(KeyMapDto("10", listOf(KeyValDto("100", "200"), KeyValDto("300", "400"))))
+        yamlDto.multiMaps = listOf(KeyValDto("10", listOf(KeyValDto("100", "200"), KeyValDto("300", "400"))))
         val dump = yaml.dump(yamlDto)
         println(dump)
 
-        val load = yaml.load<YamlDto>(dump)
-    }
+        val test = """
+map:
+- {key: '1', val: '2'}
+- {key: '3', val: '4'}
+multiMaps:
+- key: '10'
+  val:
+  - {key: '100', val: '200'}
+  - {key: '300', val: '400'} """
 
-    @Test
-    fun saveTune() {
+        val load = yaml.load<YamlDto>(test)
+        println("===>$load")
     }
 }

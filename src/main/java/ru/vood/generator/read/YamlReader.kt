@@ -1,19 +1,24 @@
 package ru.vood.generator.read
 
 import org.yaml.snakeyaml.Yaml
-import ru.vood.generator.read.dto.YamlDtoKt
+import org.yaml.snakeyaml.constructor.Constructor
+import ru.vood.generator.generate.resolve.FileNameResolverException
 import java.io.File
 
 
-class YamlReader : TuneReader<Any> {
-    override fun readTune(fileName: String): Any {
-        val yaml = Yaml()
-        val y = YamlDtoKt()
-        val dump = yaml.dump(y)
-        return dump
+class YamlReader<T>(private val clazz: Class<T>
+                    , private val fileReader: FileReader) : TuneReader<T> {
+
+    val yaml = Yaml(Constructor(clazz))
+
+    override fun readTune(fileName: String): T {
+        val file = File(fileName)
+        if (!file.exists()) throw  FileNameResolverException("""file ${file.absolutePath} does not exists.""")
+        val readFile = fileReader.readFile(fileName)
+        return yaml.load<T>(readFile)
     }
 
-    override fun saveTune(pluginTune: Any, file: File) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun saveTune(pluginTune: T, file: File) {
+        file.writeText(yaml.dump(pluginTune))
     }
 }
