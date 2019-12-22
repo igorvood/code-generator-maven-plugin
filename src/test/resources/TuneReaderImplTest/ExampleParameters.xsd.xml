@@ -1,4 +1,4 @@
-<code:pluginTines xmlns:code="http://vood.com/schema/code-generator-1.0.xsd">
+<code:pluginTines xmlns:code="http://vood.com/schema/code-generator-param-1.0.xsd">
     <code:TemplateGenerateList>
         <code:Generate template="VELOCITY" package="string" templateFile="string" metaInfoXmlFile="string"
                        xsdForMetaInfoXmlFile="string" fileNameParam="string"/>
