@@ -8,8 +8,8 @@ import javax.xml.bind.Marshaller
 import javax.xml.bind.Unmarshaller
 
 
-class TuneReaderImpl(private val xmlValidator: XMLValidator
-                     , private val fileReader: FileReader) : TuneReader {
+class XmlReader(private val xmlValidator: XMLValidator
+                , private val fileReader: FileReader) : TuneReader<PluginTines> {
 
     private val unmarshaller: Unmarshaller
     private val marshaller: Marshaller

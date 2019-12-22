@@ -1,11 +1,10 @@
 package ru.vood.generator.read
 
-import ru.vood.plugin.generated.from.xsd.PluginTines
 import java.io.File
 
-interface TuneReader {
-    fun readTune(fileName: String): PluginTines
+interface TuneReader<T> {
+    fun readTune(fileName: String): T
 
-    fun saveTune(pluginTune: PluginTines, file: File)
+    fun saveTune(pluginTune: T, file: File)
 
 }

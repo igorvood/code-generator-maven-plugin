@@ -9,13 +9,13 @@ import ru.vood.plugin.generated.from.xsd.GenerateByTemplateList
 import ru.vood.plugin.generated.from.xsd.PluginTines
 import java.io.File
 
-internal class TuneReaderImplTest {
+internal class XmlReaderTest {
 
-    private lateinit var tuneReader: TuneReader
+    private lateinit var tuneReader: TuneReader<PluginTines>
 
     @BeforeEach
     fun setUp() {
-        tuneReader = TuneReaderImpl(XMLValidatorImpl(), FileReaderImpl())
+        tuneReader = XmlReader(XMLValidatorImpl(), FileReaderImpl())
     }
 
     @Test
