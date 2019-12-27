@@ -25,7 +25,7 @@ internal class YamlReaderTest {
         val readTune = yamlReaderFor.readTune("ru/vood/generator/read/YamlReaderTest/test1.yaml")
         val readYamlDto = readTune.map
 
-        assertThat(yamlDto.map, containsInAnyOrder<KeyValDto<String>>(*readYamlDto!!.toTypedArray()))
+        assertThat(yamlDto.map, containsInAnyOrder<KeyValDto<String>>(*readYamlDto.toTypedArray()))
     }
 
     @Test

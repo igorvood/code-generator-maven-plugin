@@ -9,7 +9,7 @@ class XjcTypeToTemplateParamMapper : AbstractInputDataTypeToTemplateParamMapper<
 
     override fun map(param: TemplateParam): Pair<Map<String, String>, Map<String, Map<String, String>>> {
 
-        var simpleMap: Map<String, String>? = null
+        var simpleMap: Map<String, String>?
         try {
 
             simpleMap = param.params.simpleMap.entry
