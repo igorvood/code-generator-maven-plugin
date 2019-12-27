@@ -6,6 +6,7 @@ import org.yaml.snakeyaml.constructor.Constructor
 import ru.vood.generator.read.dto.KeyValDto
 import ru.vood.generator.read.dto.YamlParamDto
 
+@Deprecated("on delete")
 internal class YamlReaderTestDelete {
 
 

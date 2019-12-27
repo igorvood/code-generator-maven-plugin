@@ -6,16 +6,16 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import ru.vood.generator.read.dto.KeyValDto
-import ru.vood.generator.read.dto.YamlParamDto
+import ru.vood.generator.read.dto.TemplateParamDto
 import java.io.File
 
 internal class YamlReaderTest {
 
-    lateinit var yamlReaderFor: YamlReader<YamlParamDto>
+    lateinit var yamlReaderFor: YamlReader<TemplateParamDto>
 
     @BeforeEach
     fun setUp() {
-        yamlReaderFor = YamlReader(YamlParamDto::class.java, FileReaderImpl())
+        yamlReaderFor = YamlReader(TemplateParamDto::class.java, FileReaderImpl())
     }
 
     @Test
@@ -47,8 +47,8 @@ internal class YamlReaderTest {
         file.delete()
     }
 
-    private fun yamlParamTemplateDto(): YamlParamDto {
-        val yamlDto = YamlParamDto()
+    private fun yamlParamTemplateDto(): TemplateParamDto {
+        val yamlDto = TemplateParamDto()
         val listOf = listOf(KeyValDto("1", "2"), KeyValDto("3", "4"))
         yamlDto.map = listOf
         yamlDto.multiMaps = listOf(KeyValDto("10", listOf(KeyValDto("100", "200"), KeyValDto("300", "400"))))
