@@ -3,7 +3,8 @@ package ru.vood
 import org.apache.maven.plugins.annotations.LifecyclePhase
 import org.apache.maven.plugins.annotations.Mojo
 import org.apache.maven.plugins.annotations.Parameter
-import ru.vood.generator.file.FileSystemUtilities
+import ru.vood.generator.file.getCanonicalPath
+
 import ru.vood.generator.tjc.AbstractTjcMojo
 import java.io.File
 
@@ -46,7 +47,7 @@ class Test{
     }
 } """)
 
-        val canonicalPathToOutputDirectory = FileSystemUtilities().getCanonicalPath(File(baseDirectory))
+        val canonicalPathToOutputDirectory = getCanonicalPath(File(baseDirectory))
         // Add the output Directory.
         println("canonicalPathToOutputDirectory=$canonicalPathToOutputDirectory")
         getProject().addCompileSourceRoot(canonicalPathToOutputDirectory)
