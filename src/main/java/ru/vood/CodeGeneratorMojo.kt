@@ -1,33 +1,18 @@
 package ru.vood
 
-import org.apache.maven.plugin.AbstractMojo
 import org.apache.maven.plugins.annotations.LifecyclePhase
 import org.apache.maven.plugins.annotations.Mojo
 import org.apache.maven.plugins.annotations.Parameter
-import ru.vood.generator.file.GenerateFileImpl
-import ru.vood.generator.read.TuneReader
-import ru.vood.generator.read.XmlReader
-import ru.vood.generator.xml.XMLValidatorImpl
-import ru.vood.plugin.generated.from.xsd.PluginTines
+import ru.vood.generator.file.FileSystemUtilities
+import ru.vood.generator.tjc.AbstractTjcMojo
 import java.io.File
 
-@Mojo(name = "GenerateCode", defaultPhase = LifecyclePhase.GENERATE_SOURCES, threadSafe = true)
-class CodeGeneratorMojo : AbstractMojo() {
+@Mojo(name = "generate", defaultPhase = LifecyclePhase.GENERATE_SOURCES, threadSafe = true)
+class CodeGeneratorMojo : AbstractTjcMojo() {
 
-    @Parameter(property = "generatorTuneXmlFile", required = true, readonly = true)
-    private var generatorTuneXmlFile: String = ""
 
-    @Parameter(property = "baseDirectory", required = false, defaultValue = "\${project.build.directory}/generated-sources", readonly = true)
+    @Parameter(property = "baseDirectory", required = false, defaultValue = "\${project.build.directory}/generated-sources/tjc", readonly = true)
     private var baseDirectory: String = ""
-
-    @Parameter(property = "package", required = true)
-    private var packageS: String = ""
-
-    @Parameter(property = "fileName", required = true)
-    private var fileName: String = ""
-
-    @Parameter(property = "templateFileName", required = true)
-    private var templateFileName: String = ""
 
 
     val code =
@@ -42,18 +27,44 @@ class CodeGeneratorMojo : AbstractMojo() {
 
 
     override fun execute() {
-        println("------> HELLOW generatorTuneXmlFile->$generatorTuneXmlFile")
-        val read: TuneReader<PluginTines> = XmlReader(XMLValidatorImpl())
-        val readTuneFromFile = read.readTune(generatorTuneXmlFile)
-        println("------> UNMARSHAL ->$readTuneFromFile.templateGenerateList.generate.size")
+        println("BEGIN CodeGeneratorMojo")
+        val wallpaperDirectory = File("$baseDirectory/ru/vood/")
+        println(wallpaperDirectory.absolutePath)
+        // have the object build the directory structure, if needed.
+        val mkdirs = wallpaperDirectory.mkdirs()
+        println("mkdirs = $mkdirs")
 
+        val outputFile = File(wallpaperDirectory, "Test.kt")
+
+        val createNewFile = outputFile.createNewFile()
+        println("createNewFile = $createNewFile")
+        outputFile.writeText("""package ru.vood
+
+class Test{
+    fun prn(){
+        println(this.javaClass.canonicalName)
+    }
+} """)
+
+        val canonicalPathToOutputDirectory = FileSystemUtilities().getCanonicalPath(File(baseDirectory))
+        // Add the output Directory.
+        println("canonicalPathToOutputDirectory=$canonicalPathToOutputDirectory")
+        getProject().addCompileSourceRoot(canonicalPathToOutputDirectory)
+        println("END CodeGeneratorMojo")
     }
 
-    private fun staticGenerate() {
-        println("------> HELLOW baseDirectory->$baseDirectory")
-        val test = GenerateFileImpl()
-        val generateFile = test.generateFile(baseDirectory, packageS, fileName, code)
-        println("------>$generateFile")
-    }
+//    private fun gen2() {
+//        println("------> HELLOW generatorTuneXmlFile->$generatorTuneXmlFile")
+//        val read: TuneReader<PluginTines> = XmlReader(XMLValidatorImpl())
+//        val readTuneFromFile = read.readTune(generatorTuneXmlFile)
+//        println("------> UNMARSHAL ->$readTuneFromFile.templateGenerateList.generate.size")
+//    }
+//
+//    private fun staticGenerate() {
+//        println("------> HELLOW baseDirectory->$baseDirectory")
+//        val test = GenerateFileImpl()
+//        val generateFile = test.generateFile(baseDirectory, packageS, fileName, code)
+//        println("------>$generateFile")
+//    }
 
 }
