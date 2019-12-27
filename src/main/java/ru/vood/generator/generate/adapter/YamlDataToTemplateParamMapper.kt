@@ -4,8 +4,10 @@ import ru.vood.generator.read.dto.KeyValDto
 import ru.vood.generator.read.dto.YamlParamForTemplateDto
 import java.util.stream.Collectors.toMap
 
-class YamlDataToTemplateParamMapper : InputDataTypeToTemplateParam<YamlParamForTemplateDto> {
-    override fun convert(param: YamlParamForTemplateDto): Pair<Map<String, String>, Map<String, Map<String, String>>> {
+class YamlDataToTemplateParamMapper : AbstractInputDataTypeToTemplateParamMapper<YamlParamForTemplateDto>() {
+
+
+    override fun map(param: YamlParamForTemplateDto): Pair<Map<String, String>, Map<String, Map<String, String>>> {
         val map = param.map.stream()
                 .collect(
                         toMap(
