@@ -1,13 +1,13 @@
 package ru.vood.generator.generate.adapter
 
 import ru.vood.generator.read.dto.KeyValDto
-import ru.vood.generator.read.dto.YamlParamForTemplateDto
+import ru.vood.generator.read.dto.TemplateParamDto
 import java.util.stream.Collectors.toMap
 
-class YamlDataToTemplateParamMapper : AbstractInputDataTypeToTemplateParamMapper<YamlParamForTemplateDto>() {
+class YamlDataToTemplateParamMapper : AbstractInputDataTypeToTemplateParamMapper<TemplateParamDto>() {
 
 
-    override fun map(param: YamlParamForTemplateDto): Pair<Map<String, String>, Map<String, Map<String, String>>> {
+    override fun map(param: TemplateParamDto): Pair<Map<String, String>, Map<String, Map<String, String>>> {
         val map = param.map.stream()
                 .collect(
                         toMap(

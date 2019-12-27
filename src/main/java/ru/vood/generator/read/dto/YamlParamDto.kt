@@ -1,6 +1,7 @@
 package ru.vood.generator.read.dto
 
-data class YamlParamForTemplateDto(
+@Deprecated("use TemplateParamDto")
+data class YamlParamDto(
         var map: List<KeyValDto<String>>
         , var multiMaps: List<KeyValDto<List<KeyValDto<String>>>>
 ) {

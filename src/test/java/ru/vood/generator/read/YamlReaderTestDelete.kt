@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test
 import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.constructor.Constructor
 import ru.vood.generator.read.dto.KeyValDto
-import ru.vood.generator.read.dto.YamlParamForTemplateDto
+import ru.vood.generator.read.dto.YamlParamDto
 
 internal class YamlReaderTestDelete {
 
@@ -12,8 +12,8 @@ internal class YamlReaderTestDelete {
     @Test
     fun readTune() {
 
-        val yaml = Yaml(Constructor(YamlParamForTemplateDto::class.java))
-        val yamlDto = YamlParamForTemplateDto()
+        val yaml = Yaml(Constructor(YamlParamDto::class.java))
+        val yamlDto = YamlParamDto()
         val listOf = listOf(KeyValDto("1", "2"), KeyValDto("3", "4"))
         yamlDto.map = listOf
         yamlDto.multiMaps = listOf(KeyValDto("10", listOf(KeyValDto("100", "200"), KeyValDto("300", "400"))))
@@ -30,7 +30,7 @@ multiMaps:
   - {key: '100', val: '200'}
   - {key: '300', val: '400'} """
 
-        val load = yaml.load<YamlParamForTemplateDto>(test)
+        val load = yaml.load<YamlParamDto>(test)
         println("===>$load")
     }
 }
