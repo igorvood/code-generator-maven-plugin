@@ -68,7 +68,6 @@ class ClassGenerator(val fileNameResolver: FileNameResolver, val generateFileImp
         }
     }
 
-
     fun getGenParam(pluginPropertyYamlFile: String): List<GenerateParamWithYamlDto> {
 
         val yamlReader = YamlReader(PluginParamDto::class.java, fileReader)
