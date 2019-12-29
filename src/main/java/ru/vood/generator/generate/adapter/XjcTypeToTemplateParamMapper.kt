@@ -5,6 +5,7 @@ import ru.vood.generator.read.dto.TemplateParamDto
 import ru.vood.plugin.generated.from.xsd.TemplateParam
 import kotlin.streams.toList
 
+@Deprecated("not in use")
 class XjcTypeToTemplateParamMapper : AbstractInputDataTypeToTemplateParamMapper<TemplateParam>() {
 
     override fun map(param: TemplateParam): TemplateParamDto {
@@ -16,15 +17,15 @@ class XjcTypeToTemplateParamMapper : AbstractInputDataTypeToTemplateParamMapper<
 
         val superMap = param.params.superMap.entry
                 .stream()
-                .map {
+                .map { it ->
                     KeyValDto<List<KeyValDto<String>>>(
                             it.key,
                             it.value.entry.stream()
-                                    .map { KeyValDto<String>(it.key, it.value) }
+                                    .map { KeyValDto(it.key, it.value) }
                                     .toList()
                     )
                 }
                 .toList()
-        return TemplateParamDto(simpleMap, superMap, ArrayList<KeyValDto<List<String>>>())
+        return TemplateParamDto(simpleMap, superMap, ArrayList())
     }
 }

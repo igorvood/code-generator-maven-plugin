@@ -1,6 +1,6 @@
 package ru.vood.generator.read.dto
 
-data class PluginParamDto(var generateParamDto: List<GenerateParamDto>?
+data class PluginParamDto(var generateParamDto: List<GenerateParamDto>
 ) {
-    constructor() : this(null)
+    constructor() : this(ArrayList<GenerateParamDto>())
 }

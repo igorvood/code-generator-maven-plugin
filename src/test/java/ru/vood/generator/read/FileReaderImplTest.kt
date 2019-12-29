@@ -3,7 +3,6 @@ package ru.vood.generator.read
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 internal class FileReaderImplTest {
@@ -27,7 +26,8 @@ internal class FileReaderImplTest {
         try {
             fileReaderImpl.readFile("asdf")
         } catch (e: Throwable) {
-            assertEquals("file asdf is not found!", e.message)
+            assertTrue(e.message!!.contains(" is not found!"))
+//            assertEquals("file asdf is not found!", e.message)
         }
 
     }

@@ -4,6 +4,9 @@ import org.apache.maven.plugins.annotations.LifecyclePhase
 import org.apache.maven.plugins.annotations.Mojo
 import org.apache.maven.plugins.annotations.Parameter
 import ru.vood.generator.file.getCanonicalPath
+import ru.vood.generator.read.FileReaderImpl
+import ru.vood.generator.read.YamlReader
+import ru.vood.generator.read.dto.PluginParamDto
 
 import ru.vood.generator.tjc.AbstractTjcMojo
 import java.io.File
@@ -11,24 +14,19 @@ import java.io.File
 @Mojo(name = "generate", defaultPhase = LifecyclePhase.GENERATE_SOURCES, threadSafe = true)
 class CodeGeneratorMojo : AbstractTjcMojo() {
 
-
-    @Parameter(property = "baseDirectory", required = false, defaultValue = "\${project.build.directory}/generated-sources/tjc", readonly = true)
+    @Parameter(property = "baseDirectory", required = false, defaultValue = "\${project.build.directory}/generated-sources/tjc")
     private var baseDirectory: String = ""
 
-
-    val code =
-            "public class POI {\n" +
-                    "}\n"
-    /**
-     * Location of the file.
-     * @parameter expression="${project.build.directory}"
-     * @required
-     */
-    private val outputDirectory: File? = null
-
+    @Parameter(property = "pluginPropertyYaml", required = true, defaultValue = "\${project.basedir}/src/main/resources/CodeGenerator.yaml")
+    private lateinit var pluginPropertyYamlFile: String
 
     override fun execute() {
-        println("BEGIN CodeGeneratorMojo")
+        println("BEGIN CodeGeneratorMojo $pluginPropertyYamlFile")
+        val yamlReader = YamlReader(PluginParamDto::class.java, FileReaderImpl())
+        val pluginParam = yamlReader.readTune(getCanonicalPath(File(pluginPropertyYamlFile)))
+        println("readTune ==> $pluginParam")
+
+
         val wallpaperDirectory = File("$baseDirectory/ru/vood/")
         println(wallpaperDirectory.absolutePath)
         // have the object build the directory structure, if needed.
