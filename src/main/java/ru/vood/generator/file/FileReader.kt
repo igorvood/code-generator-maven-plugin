@@ -1,4 +1,4 @@
-package ru.vood.generator.read
+package ru.vood.generator.file
 
 interface FileReader {
 

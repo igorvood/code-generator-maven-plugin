@@ -3,11 +3,10 @@ package ru.vood
 import org.apache.maven.plugins.annotations.LifecyclePhase
 import org.apache.maven.plugins.annotations.Mojo
 import org.apache.maven.plugins.annotations.Parameter
+import ru.vood.generator.file.FileReaderImpl
 import ru.vood.generator.file.getCanonicalPath
-import ru.vood.generator.read.FileReaderImpl
 import ru.vood.generator.read.YamlReader
 import ru.vood.generator.read.dto.PluginParamDto
-
 import ru.vood.generator.tjc.AbstractTjcMojo
 import java.io.File
 

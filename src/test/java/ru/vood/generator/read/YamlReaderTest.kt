@@ -5,6 +5,7 @@ import org.hamcrest.Matchers.containsInAnyOrder
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import ru.vood.generator.file.FileReaderImpl
 import ru.vood.generator.read.dto.KeyValDto
 import ru.vood.generator.read.dto.TemplateParamDto
 import java.io.File

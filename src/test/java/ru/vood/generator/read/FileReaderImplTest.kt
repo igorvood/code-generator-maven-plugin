@@ -3,6 +3,8 @@ package ru.vood.generator.read
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import ru.vood.generator.file.FileReader
+import ru.vood.generator.file.FileReaderImpl
 import kotlin.test.assertTrue
 
 internal class FileReaderImplTest {
