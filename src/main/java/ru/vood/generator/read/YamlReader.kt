@@ -2,9 +2,9 @@ package ru.vood.generator.read
 
 import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.constructor.Constructor
-import ru.vood.generator.read.dto.KeyValDto
-import ru.vood.generator.read.dto.TemplateParamDto
+import ru.vood.generator.read.dto.ExampleData
 import java.io.File
+import java.util.stream.Stream
 
 
 class YamlReader<T>(private val clazz: Class<T>
@@ -17,8 +17,12 @@ class YamlReader<T>(private val clazz: Class<T>
         return try {
             yaml.load<T>(readFile)
         } catch (e: Exception) {
+            val example = Stream.of(*ExampleData.values())
+                    .filter { it.clazz == clazz }
+                    .findFirst()
+                    .get()
             throw IllegalStateException(
-                    "The file format is not as expected. Example:\n${yaml.dump(yamlParamTemplateDto())}"
+                    "The file format is not as expected. Example:\n${example.yaml}"
                     , e)
         }
     }
@@ -26,14 +30,6 @@ class YamlReader<T>(private val clazz: Class<T>
     override fun saveTune(pluginTune: T, file: File) {
         val text = yaml.dump(pluginTune)
         file.writeText(text)
-    }
-
-    private fun yamlParamTemplateDto(): TemplateParamDto {
-        val yamlDto = TemplateParamDto()
-        val listOf = listOf(KeyValDto("key1", "val2"), KeyValDto("key3", "val4"))
-        yamlDto.map = listOf
-        yamlDto.multiMaps = listOf(KeyValDto("key10", listOf(KeyValDto("key100", "val200"), KeyValDto("key300", "val400"))))
-        return yamlDto
     }
 
 }
