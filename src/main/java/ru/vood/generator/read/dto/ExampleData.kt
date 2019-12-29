@@ -28,8 +28,9 @@ private fun pluginParamDto(): String {
     val yamlDto = PluginParamDto()
 
     yamlDto.generateParamDto = listOf(
-            GenerateParamDto(TemplateEngine.FREE_MARKER, "file1", "sep1"),
-            GenerateParamDto(TemplateEngine.FREE_MARKER_DATABASE, "file2", "sep2")
+            GenerateParamDto(TemplateEngine.FREE_MARKER, TypeClass.JAVA, "file1", "paramFile1", "sep1"),
+            GenerateParamDto(TemplateEngine.FREE_MARKER_DATABASE, TypeClass.KOTLIN, "file2", "paramFile2", "sep2"),
+            GenerateParamDto(TemplateEngine.VELOCITY, TypeClass.KOTLIN, "file3", "paramFile3", "sep3")
     )
     return yaml.dump(yamlDto)
 }

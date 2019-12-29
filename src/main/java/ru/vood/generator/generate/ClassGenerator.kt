@@ -5,6 +5,7 @@ import ru.vood.generator.file.getCanonicalPath
 import ru.vood.generator.read.YamlReader
 import ru.vood.generator.read.dto.PluginParamDto
 import ru.vood.generator.read.dto.TemplateParamDto
+import sun.plugin.dom.exception.InvalidStateException
 import java.io.File
 import kotlin.streams.toList
 
@@ -12,21 +13,23 @@ class ClassGenerator(val pluginPropertyYamlFile: String) {
 
     fun generate() {
         val genParam = getGenParam(pluginPropertyYamlFile)
-        val textFiles = getTextFiles(genParam)
+        val textFiles = generateTextFiles(genParam)
         println(textFiles.size)
     }
 
 
-    fun getTextFiles(param: List<GenerateParamWithYamlDto>): List<Pair<GenerateParamWithYamlDto, String>> {
+    fun generateTextFiles(param: List<GenerateParamWithYamlDto>): List<Pair<GenerateParamWithYamlDto, String>> {
         return param.stream()
-                .map { genText(it) }
+                .map { genrateText(it) }
                 .peek { println(it.second) }
                 .toList()
     }
 
-    fun genText(p: GenerateParamWithYamlDto) =
+    fun genrateText(p: GenerateParamWithYamlDto) =
             try {
-                Pair(p, p.generateParam.templateEngine.runner.generateText(p.templateParam))
+                val file = File(p.generateParam.templateFile)
+                if (!file.exists()) throw InvalidStateException("File '${p.generateParam.templateFile}' does no exits")
+                Pair(p, p.generateParam.templateEngine.runner.generateText(p.templateParam, file))
             } catch (e: Exception) {
                 throw IllegalStateException("Can not generate text for engine ${p.generateParam.templateEngine} file ${p.generateParam.templateFile}")
             }
