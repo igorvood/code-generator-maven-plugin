@@ -25,26 +25,42 @@ class ClassGenerator(val pluginPropertyYamlFile: String) {
                 .toList()
     }
 
-    fun genrateText(p: GenerateParamWithYamlDto) =
-            try {
-                val file = File(p.generateParam.templateFile)
-                if (!file.exists()) throw InvalidStateException("File '${p.generateParam.templateFile}' does no exits")
-                Pair(p, p.generateParam.templateEngine.runner.generateText(p.templateParam, file))
-            } catch (e: Exception) {
-                throw IllegalStateException("Can not generate text for engine ${p.generateParam.templateEngine} file ${p.generateParam.templateFile}")
-            }
+    fun genrateText(p: GenerateParamWithYamlDto): Pair<GenerateParamWithYamlDto, String> {
+        val templateFile = p.templateParamFileFilesDto.templateFile
+        val templateEngine = p.templateEngine
+
+        try {
+            val file = File(templateFile)
+            if (!file.exists()) throw InvalidStateException("File '${templateFile}' does no exits")
+
+            return Pair(p, templateEngine.runner.generateText(p.templateParam, file))
+        } catch (e: Exception) {
+            throw IllegalStateException("Can not generate text for engine $templateEngine file $templateFile")
+        }
+    }
 
 
     fun getGenParam(pluginPropertyYamlFile: String): List<GenerateParamWithYamlDto> {
         val fileReader = FileReaderImpl()
         val yamlReader = YamlReader(PluginParamDto::class.java, fileReader)
         val pluginParam = yamlReader.readTune(getCanonicalPath(File(pluginPropertyYamlFile)))
-
-
         val yamlTemplateParamDto = YamlReader(TemplateParamDto::class.java, fileReader)
-        return pluginParam.generateParamDto.stream()
-                .map { GenerateParamWithYamlDto(it, yamlTemplateParamDto.readTune(it.templateFile)) }
+
+        val toList = pluginParam.generateParamDto.stream()
+                .map { p ->
+                    p.templateParamFilesDto.stream()
+                            .map {
+                                GenerateParamWithYamlDto(
+                                        p.templateEngine,
+                                        p.classType,
+                                        p.classSeparator,
+                                        it,
+                                        yamlTemplateParamDto.readTune(it.templateParamFile))
+                            }
+                }
+                .flatMap { it }
                 .toList()
+        return toList
     }
 
 }
