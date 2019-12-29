@@ -3,8 +3,13 @@ package ru.vood
 import org.apache.maven.plugins.annotations.LifecyclePhase
 import org.apache.maven.plugins.annotations.Mojo
 import org.apache.maven.plugins.annotations.Parameter
+import ru.vood.generator.file.FileReaderImpl
+import ru.vood.generator.file.GenerateFileImpl
+import ru.vood.generator.file.getCanonicalPath
+import ru.vood.generator.file.resolve.FileNameResolverImpl
 import ru.vood.generator.generate.ClassGenerator
 import ru.vood.generator.tjc.AbstractTjcMojo
+import java.io.File
 
 @Mojo(name = "generate", defaultPhase = LifecyclePhase.GENERATE_SOURCES, threadSafe = true)
 class CodeGeneratorMojo : AbstractTjcMojo() {
@@ -16,7 +21,7 @@ class CodeGeneratorMojo : AbstractTjcMojo() {
     private lateinit var pluginPropertyYamlFile: String
 
     override fun execute() {
-        ClassGenerator(pluginPropertyYamlFile, baseDirectory).generate()
+        ClassGenerator(FileNameResolverImpl(), GenerateFileImpl(), FileReaderImpl()).generate(pluginPropertyYamlFile, baseDirectory)
 
 
 /*        val wallpaperDirectory = File("$baseDirectory/ru/vood/")
@@ -35,13 +40,15 @@ class Test{
     fun prn(){
         println(this.javaClass.canonicalName)
     }
-} """)
+} """)*/
 
+        addToCompile()
+    }
+
+    private fun addToCompile() {
         val canonicalPathToOutputDirectory = getCanonicalPath(File(baseDirectory))
         // Add the output Directory.
-        println("canonicalPathToOutputDirectory=$canonicalPathToOutputDirectory")
         getProject().addCompileSourceRoot(canonicalPathToOutputDirectory)
-        println("END CodeGeneratorMojo")*/
     }
 
 

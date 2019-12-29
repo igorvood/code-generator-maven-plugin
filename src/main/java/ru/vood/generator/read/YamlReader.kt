@@ -16,7 +16,7 @@ class YamlReader<T>(private val clazz: Class<T>
     override fun readTune(fileName: String): T {
         val readFile = fileReader.readFile(fileName)
         return try {
-            return yaml.load<T>(readFile) ?: throw java.lang.IllegalStateException("File $fileName is empty")
+            return yaml.load<T>(readFile) ?: throw IllegalStateException("File $fileName is empty")
 
         } catch (e: Exception) {
             val example = Stream.of(*ExampleData.values())

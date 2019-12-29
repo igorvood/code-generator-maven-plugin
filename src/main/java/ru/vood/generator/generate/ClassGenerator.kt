@@ -1,9 +1,9 @@
 package ru.vood.generator.generate
 
-import ru.vood.generator.file.FileReaderImpl
-import ru.vood.generator.file.GenerateFileImpl
+import ru.vood.generator.file.FileReader
+import ru.vood.generator.file.GenerateFile
 import ru.vood.generator.file.getCanonicalPath
-import ru.vood.generator.file.resolve.FileNameResolverImpl
+import ru.vood.generator.file.resolve.FileNameResolver
 import ru.vood.generator.file.resolve.FilePropertyDto
 import ru.vood.generator.read.YamlReader
 import ru.vood.generator.read.dto.PluginParamDto
@@ -15,12 +15,11 @@ import java.util.stream.Collectors
 import kotlin.streams.toList
 
 
-class ClassGenerator(val pluginPropertyYamlFile: String, val baseDirectory: String) {
+class ClassGenerator(val fileNameResolver: FileNameResolver, val generateFileImpl: GenerateFile, val fileReader: FileReader) {
 
-    fun generate() {
+    fun generate(pluginPropertyYamlFile: String, baseDirectory: String) {
         val genParam = getGenParam(pluginPropertyYamlFile)
         val textFiles = generateTextFiles(genParam)
-        val fileNameResolver = FileNameResolverImpl()
         val files: List<Triple<GenerateParamWithYamlDto, String, FilePropertyDto>> = textFiles.stream()
                 .map { p ->
                     p.second.split(p.first.classSeparator).stream()
@@ -36,8 +35,6 @@ class ClassGenerator(val pluginPropertyYamlFile: String, val baseDirectory: Stri
                 .collect(Collectors.toSet())
         if (dublicate.size > 0)
             throw IllegalStateException("Duplicate is found $dublicate")
-
-        val generateFileImpl = GenerateFileImpl()
 
         println("generate files")
         files.stream()
@@ -74,7 +71,7 @@ class ClassGenerator(val pluginPropertyYamlFile: String, val baseDirectory: Stri
 
 
     fun getGenParam(pluginPropertyYamlFile: String): List<GenerateParamWithYamlDto> {
-        val fileReader = FileReaderImpl()
+
         val yamlReader = YamlReader(PluginParamDto::class.java, fileReader)
         val pluginParam = yamlReader.readTune(getCanonicalPath(File(pluginPropertyYamlFile)))
         val yamlTemplateParamDto = YamlReader(TemplateParamDto::class.java, fileReader)
