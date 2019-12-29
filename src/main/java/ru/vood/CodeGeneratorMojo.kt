@@ -16,7 +16,7 @@ class CodeGeneratorMojo : AbstractTjcMojo() {
     private lateinit var pluginPropertyYamlFile: String
 
     override fun execute() {
-        ClassGenerator(pluginPropertyYamlFile).generate()
+        ClassGenerator(pluginPropertyYamlFile, baseDirectory).generate()
 
 
 /*        val wallpaperDirectory = File("$baseDirectory/ru/vood/")

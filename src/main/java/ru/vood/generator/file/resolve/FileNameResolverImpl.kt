@@ -23,6 +23,6 @@ class FileNameResolverImpl : FileNameResolver {
         } else err += " Can not resolve class name, regexp=${typeFile.classNameRegexp}."
 
         if (err.isNotEmpty()) throw FileNameResolverException("$err. File text:\n$text")
-        return FilePropertyDto(fileName = clazz!!, packageStr = pack!!, type = typeFile)
+        return FilePropertyDto(fileName = """${clazz!!}.${typeFile.extensionFile}""", packageStr = pack!!, type = typeFile)
     }
 }

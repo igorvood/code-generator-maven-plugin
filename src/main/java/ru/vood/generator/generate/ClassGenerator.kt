@@ -1,6 +1,7 @@
 package ru.vood.generator.generate
 
 import ru.vood.generator.file.FileReaderImpl
+import ru.vood.generator.file.GenerateFileImpl
 import ru.vood.generator.file.getCanonicalPath
 import ru.vood.generator.file.resolve.FileNameResolverImpl
 import ru.vood.generator.file.resolve.FilePropertyDto
@@ -14,7 +15,7 @@ import java.util.stream.Collectors
 import kotlin.streams.toList
 
 
-class ClassGenerator(val pluginPropertyYamlFile: String) {
+class ClassGenerator(val pluginPropertyYamlFile: String, val baseDirectory: String) {
 
     fun generate() {
         val genParam = getGenParam(pluginPropertyYamlFile)
@@ -36,7 +37,17 @@ class ClassGenerator(val pluginPropertyYamlFile: String) {
         if (dublicate.size > 0)
             throw IllegalStateException("Duplicate is found $dublicate")
 
-        println(textFiles.size)
+        val generateFileImpl = GenerateFileImpl()
+
+        println("generate files")
+        files.stream()
+                .peek { println("File prop " + it.third) }
+                .map {
+                    generateFileImpl.generateFile(baseDirectory, it.third.packageStr, it.third.fileName, it.second)
+                }
+                .forEach { println("Generate File $it") }
+
+        println("total files ${files.size}")
     }
 
 
