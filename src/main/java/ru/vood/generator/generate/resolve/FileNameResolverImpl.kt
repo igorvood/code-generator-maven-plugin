@@ -6,7 +6,7 @@ import java.util.regex.Pattern
 
 class FileNameResolverImpl : FileNameResolver {
 
-    override fun resolveFileByContent(typeFile: TypeFile, text: String): FileProperty {
+    override fun resolveFileByContent(typeFile: TypeFile, text: String): FilePropertyDto {
         val patternPack: Pattern = Pattern.compile(typeFile.packageRegexp, Pattern.MULTILINE)
         val matcherPack: Matcher = patternPack.matcher(text)
         var err = ""
@@ -23,6 +23,6 @@ class FileNameResolverImpl : FileNameResolver {
         } else err += " Can not resolve class name, regexp=${typeFile.classNameRegexp}."
 
         if (err.isNotEmpty()) throw FileNameResolverException("$err. File text:\n$text")
-        return FileProperty(fileName = clazz!!, packageStr = pack!!, type = typeFile)
+        return FilePropertyDto(fileName = clazz!!, packageStr = pack!!, type = typeFile)
     }
 }

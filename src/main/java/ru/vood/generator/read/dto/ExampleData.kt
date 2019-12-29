@@ -2,6 +2,7 @@ package ru.vood.generator.read.dto
 
 import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.constructor.Constructor
+import ru.vood.generator.generate.resolve.TypeFile
 import ru.vood.generator.generate.runner.TemplateEngine
 
 enum class ExampleData(val clazz: Class<*>, val yaml: String) {
@@ -28,9 +29,9 @@ private fun pluginParamDto(): String {
     val yamlDto = PluginParamDto()
 
     yamlDto.generateParamDto = listOf(
-            GenerateParamDto(TemplateEngine.FREE_MARKER, TypeClass.JAVA, "sep1", listOf(ParamForTemplateFilesDto("templateFile1", "paramFile1"), ParamForTemplateFilesDto("templateFile2", "paramFile2"))),
-            GenerateParamDto(TemplateEngine.FREE_MARKER_DATABASE, TypeClass.KOTLIN, "sep2", listOf(ParamForTemplateFilesDto("templateFile1", "paramFile1"), ParamForTemplateFilesDto("templateFile2", "paramFile2"))),
-            GenerateParamDto(TemplateEngine.VELOCITY, TypeClass.KOTLIN, "sep3", listOf(ParamForTemplateFilesDto("templateFile1", "paramFile1"), ParamForTemplateFilesDto("templateFile2", "paramFile2")))
+            GenerateParamDto(TemplateEngine.FREE_MARKER, TypeFile.JAVA, "sep1", listOf(ParamForTemplateFilesDto("templateFile1", "paramFile1"), ParamForTemplateFilesDto("templateFile2", "paramFile2"))),
+            GenerateParamDto(TemplateEngine.FREE_MARKER_DATABASE, TypeFile.KOTLIN, "sep2", listOf(ParamForTemplateFilesDto("templateFile1", "paramFile1"), ParamForTemplateFilesDto("templateFile2", "paramFile2"))),
+            GenerateParamDto(TemplateEngine.VELOCITY, TypeFile.KOTLIN, "sep3", listOf(ParamForTemplateFilesDto("templateFile1", "paramFile1"), ParamForTemplateFilesDto("templateFile2", "paramFile2")))
     )
     return yaml.dump(yamlDto)
 }
