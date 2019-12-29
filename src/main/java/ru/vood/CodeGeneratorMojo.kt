@@ -3,10 +3,8 @@ package ru.vood
 import org.apache.maven.plugins.annotations.LifecyclePhase
 import org.apache.maven.plugins.annotations.Mojo
 import org.apache.maven.plugins.annotations.Parameter
-import ru.vood.generator.file.FileReaderImpl
 import ru.vood.generator.file.getCanonicalPath
-import ru.vood.generator.read.YamlReader
-import ru.vood.generator.read.dto.PluginParamDto
+import ru.vood.generator.generate.ClassGenerator
 import ru.vood.generator.tjc.AbstractTjcMojo
 import java.io.File
 
@@ -14,16 +12,14 @@ import java.io.File
 class CodeGeneratorMojo : AbstractTjcMojo() {
 
     @Parameter(property = "baseDirectory", required = false, defaultValue = "\${project.build.directory}/generated-sources/tjc")
-    private var baseDirectory: String = ""
+    private lateinit var baseDirectory: String
 
     @Parameter(property = "pluginPropertyYaml", required = true, defaultValue = "\${project.basedir}/src/main/resources/CodeGenerator.yaml")
     private lateinit var pluginPropertyYamlFile: String
 
     override fun execute() {
         println("BEGIN CodeGeneratorMojo $pluginPropertyYamlFile")
-        val yamlReader = YamlReader(PluginParamDto::class.java, FileReaderImpl())
-        val pluginParam = yamlReader.readTune(getCanonicalPath(File(pluginPropertyYamlFile)))
-        println("readTune ==> $pluginParam")
+        ClassGenerator(pluginPropertyYamlFile).generate()
 
 
         val wallpaperDirectory = File("$baseDirectory/ru/vood/")
@@ -50,6 +46,7 @@ class Test{
         getProject().addCompileSourceRoot(canonicalPathToOutputDirectory)
         println("END CodeGeneratorMojo")
     }
+
 
 //    private fun gen2() {
 //        println("------> HELLOW generatorTuneXmlFile->$generatorTuneXmlFile")

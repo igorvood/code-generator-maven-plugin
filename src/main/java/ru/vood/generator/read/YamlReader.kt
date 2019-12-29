@@ -16,14 +16,15 @@ class YamlReader<T>(private val clazz: Class<T>
     override fun readTune(fileName: String): T {
         val readFile = fileReader.readFile(fileName)
         return try {
-            yaml.load<T>(readFile)
+            return yaml.load<T>(readFile) ?: throw java.lang.IllegalStateException("File $fileName is empty")
+
         } catch (e: Exception) {
             val example = Stream.of(*ExampleData.values())
                     .filter { it.clazz == clazz }
                     .findFirst()
                     .get()
             throw IllegalStateException(
-                    "The file format is not as expected. Example:\n${example.yaml}"
+                    "The file format $fileName is not as expected. Example:\n${example.yaml}"
                     , e)
         }
     }

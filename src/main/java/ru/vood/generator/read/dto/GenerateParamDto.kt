@@ -1,9 +1,11 @@
 package ru.vood.generator.read.dto
 
+import ru.vood.generator.generate.runner.TemplateEngine
+
 data class GenerateParamDto(
-        var templateEngine: TemplateEngine?
-        , var templateFile: String?
-        , var classSeparator: String?
+        var templateEngine: TemplateEngine
+        , var templateFile: String
+        , var classSeparator: String
 ) {
-    constructor() : this(null, null, null)
+    constructor() : this(TemplateEngine.ERROR, "ERROR FILE", "ERROR SEPARATOR")
 }
