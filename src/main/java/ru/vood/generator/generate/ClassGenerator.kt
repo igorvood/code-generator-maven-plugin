@@ -1,5 +1,6 @@
 package ru.vood.generator.generate
 
+import org.apache.maven.plugin.logging.Log
 import ru.vood.generator.file.FileReader
 import ru.vood.generator.file.GenerateFile
 import ru.vood.generator.file.getCanonicalPath
@@ -15,7 +16,7 @@ import java.util.stream.Collectors
 import kotlin.streams.toList
 
 
-class ClassGenerator(val fileNameResolver: FileNameResolver, val generateFileImpl: GenerateFile, val fileReader: FileReader) {
+class ClassGenerator(val fileNameResolver: FileNameResolver, val generateFileImpl: GenerateFile, val fileReader: FileReader, val log: Log) {
 
     fun generate(pluginPropertyYamlFile: String, baseDirectory: String) {
         val genParam = getGenParam(pluginPropertyYamlFile)
@@ -36,22 +37,20 @@ class ClassGenerator(val fileNameResolver: FileNameResolver, val generateFileImp
         if (dublicate.size > 0)
             throw IllegalStateException("Duplicate is found $dublicate")
 
-        println("generate files")
+        log.info("------- TJC plugin Generate files ---------------")
         files.stream()
-                .peek { println("File prop " + it.third) }
-                .map {
-                    generateFileImpl.generateFile(baseDirectory, it.third.packageStr, it.third.fileName, it.second)
-                }
-                .forEach { println("Generate File $it") }
+                .peek { log.debug("""File prop ${it.third}""") }
+                .peek { log.info("""Try to generate file by template ${it.first.templateParamFileFilesDto.templateFile} template param ${it.first.templateParamFileFilesDto.templateParamFile}""") }
+                .map { generateFileImpl.generateFile(baseDirectory, it.third.packageStr, it.third.fileName, it.second) }
+                .forEach { log.info("Generated file $it") }
 
-        println("total files ${files.size}")
+        log.info("total files ${files.size}")
     }
 
 
     fun generateTextFiles(param: List<GenerateParamWithYamlDto>): List<Pair<GenerateParamWithYamlDto, String>> {
         return param.stream()
                 .map { genrateText(it) }
-//                .peek { println(it.second) }
                 .toList()
     }
 
