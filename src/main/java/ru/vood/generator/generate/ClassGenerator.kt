@@ -2,18 +2,40 @@ package ru.vood.generator.generate
 
 import ru.vood.generator.file.FileReaderImpl
 import ru.vood.generator.file.getCanonicalPath
+import ru.vood.generator.file.resolve.FileNameResolverImpl
+import ru.vood.generator.file.resolve.FilePropertyDto
 import ru.vood.generator.read.YamlReader
 import ru.vood.generator.read.dto.PluginParamDto
 import ru.vood.generator.read.dto.TemplateParamDto
 import sun.plugin.dom.exception.InvalidStateException
 import java.io.File
+import java.util.*
+import java.util.stream.Collectors
 import kotlin.streams.toList
+
 
 class ClassGenerator(val pluginPropertyYamlFile: String) {
 
     fun generate() {
         val genParam = getGenParam(pluginPropertyYamlFile)
         val textFiles = generateTextFiles(genParam)
+        val fileNameResolver = FileNameResolverImpl()
+        val files: List<Triple<GenerateParamWithYamlDto, String, FilePropertyDto>> = textFiles.stream()
+                .map { p ->
+                    p.second.split(p.first.classSeparator).stream()
+                            .map { Triple(p.first, it, fileNameResolver.resolveFileByContent(p.first.classType, it)) }
+                }
+                .flatMap { it }
+                .toList()
+        val allItems = HashSet<FilePropertyDto>()
+
+        val dublicate = files.stream()
+                .filter { !allItems.add(it.third) }
+                .map { Triple(it.first.templateParamFileFilesDto.templateFile, it.first.templateParamFileFilesDto.templateParamFile, it.third) }
+                .collect(Collectors.toSet())
+        if (dublicate.size > 0)
+            throw IllegalStateException("Duplicate is found $dublicate")
+
         println(textFiles.size)
     }
 
@@ -21,7 +43,7 @@ class ClassGenerator(val pluginPropertyYamlFile: String) {
     fun generateTextFiles(param: List<GenerateParamWithYamlDto>): List<Pair<GenerateParamWithYamlDto, String>> {
         return param.stream()
                 .map { genrateText(it) }
-                .peek { println(it.second) }
+//                .peek { println(it.second) }
                 .toList()
     }
 

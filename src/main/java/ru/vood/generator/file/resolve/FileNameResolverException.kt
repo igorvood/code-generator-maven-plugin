@@ -1,4 +1,4 @@
-package ru.vood.generator.generate.resolve
+package ru.vood.generator.file.resolve
 
 class FileNameResolverException(s: String) : RuntimeException(s) {
     override val message: String

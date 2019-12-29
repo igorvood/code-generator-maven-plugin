@@ -2,7 +2,7 @@ package ru.vood.generator.read.dto
 
 import org.yaml.snakeyaml.Yaml
 import org.yaml.snakeyaml.constructor.Constructor
-import ru.vood.generator.generate.resolve.TypeFile
+import ru.vood.generator.file.resolve.TypeFile
 import ru.vood.generator.generate.runner.TemplateEngine
 
 enum class ExampleData(val clazz: Class<*>, val yaml: String) {

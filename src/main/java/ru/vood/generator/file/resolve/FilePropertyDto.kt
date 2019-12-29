@@ -1,4 +1,4 @@
-package ru.vood.generator.generate.resolve
+package ru.vood.generator.file.resolve
 
 data class FilePropertyDto(val fileName: String
                            , val packageStr: String

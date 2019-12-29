@@ -1,6 +1,6 @@
 package ru.vood.generator.read.dto
 
-import ru.vood.generator.generate.resolve.TypeFile
+import ru.vood.generator.file.resolve.TypeFile
 import ru.vood.generator.generate.runner.TemplateEngine
 
 data class GenerateParamDto(

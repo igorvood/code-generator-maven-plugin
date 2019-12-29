@@ -1,4 +1,4 @@
-package ru.vood.generator.generate.resolve
+package ru.vood.generator.file.resolve
 
 import java.util.regex.Matcher
 import java.util.regex.Pattern

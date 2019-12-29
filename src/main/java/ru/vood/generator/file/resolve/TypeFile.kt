@@ -1,8 +1,8 @@
-package ru.vood.generator.generate.resolve
+package ru.vood.generator.file.resolve
 
-import ru.vood.generator.generate.resolve.TypeFile.Const.JAVA_CLASS_NAME
-import ru.vood.generator.generate.resolve.TypeFile.Const.KOTLIN_CLASS_NAME
-import ru.vood.generator.generate.resolve.TypeFile.Const.PACK
+import ru.vood.generator.file.resolve.TypeFile.Const.JAVA_CLASS_NAME
+import ru.vood.generator.file.resolve.TypeFile.Const.KOTLIN_CLASS_NAME
+import ru.vood.generator.file.resolve.TypeFile.Const.PACK
 
 enum class TypeFile(val extensionFile: String
                     , val classNameRegexp: String
