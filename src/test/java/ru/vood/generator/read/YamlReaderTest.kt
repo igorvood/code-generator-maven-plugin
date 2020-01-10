@@ -35,7 +35,8 @@ internal class YamlReaderTest {
             yamlReaderFor.readTune("ru/vood/generator/read/YamlReaderTest/test_error.yaml")
             Assertions.fail<String>("Test Fail")
         } catch (e: Exception) {
-            Assertions.assertTrue(e.message!!.contains("The file format is not as expected. Example:"))
+            Assertions.assertTrue(e.message!!.contains("The file format "))
+            Assertions.assertTrue(e.message!!.contains("is not as expected. Example:"))
         }
     }
 

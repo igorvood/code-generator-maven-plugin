@@ -25,12 +25,13 @@ internal class FileNameResolverImplTest {
         lf.stream()
                 .map { Pair<File, String>(it, readFile(it)) }
 //                .filter{it.first.absolutePath.contains("VBdIndexedColomnsEntityTest")}
-//                .peek { println("----->"+it.first) }
+                .peek { println("----->" + it.first) }
                 .map { Pair(it.first.absolutePath.replace("\\", "."), fileNameResolver.resolveFileByContent(calculationTypeFile(it.first), it.second)) }
 //                .peek { println(it.first.substring(it.first.indexOf("ru.vood"))) }
                 .map { Pair(it.first.substring(it.first.indexOf("ru.vood")), it.second) }
                 .peek { Assertions.assertTrue(it.first.contains(it.second.packageStr), "package for ${it.first} does not correct") }
-                .peek { Assertions.assertTrue(it.first.contains(it.second.fileName + "." + it.second.type.extensionFile), "file name for ${it.first} does not correct") }
+//                .peek { println(it.first) }
+                .peek { Assertions.assertTrue(it.first.contains("""${it.second.fileName}"""), """file name for ${it.first} does not correct, resolve file ${it.second.fileName}.${it.second.type.extensionFile}""") }
                 .forEach { println(it) }
         println("total file ${lf.size}")
     }
