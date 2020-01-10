@@ -6,6 +6,7 @@ import ru.vood.generator.file.GenerateFile
 import ru.vood.generator.file.getCanonicalPath
 import ru.vood.generator.file.resolve.FileNameResolver
 import ru.vood.generator.file.resolve.FilePropertyDto
+import ru.vood.generator.generate.runner.resolveEngineRunner
 import ru.vood.generator.read.YamlReader
 import ru.vood.generator.read.dto.PluginParamDto
 import ru.vood.generator.read.dto.TemplateParamDto
@@ -62,7 +63,7 @@ class ClassGenerator(val fileNameResolver: FileNameResolver, val generateFileImp
             val file = File(templateFile)
             if (!file.exists()) throw InvalidStateException("File '${templateFile}' does no exits")
 
-            return Pair(p, templateEngine.runner.generateText(p.templateParam, file))
+            return Pair(p, resolveEngineRunner(templateEngine).generateText(p.templateParam, file))
         } catch (e: Exception) {
             throw IllegalStateException("Can not generate text for engine $templateEngine file $templateFile")
         }
